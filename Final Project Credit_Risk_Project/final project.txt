@@ -1,0 +1,65 @@
+Customer Credit Risk Data Preparation Project
+
+In this project, I worked on a Customer Credit Risk dataset. The goal was 
+to clean the data and make it ready for machine learning so we can predict 
+if a customer will default on a loan.
+
+The dataset had 1000 rows and 15 columns. It had missing values, outliers, 
+and different types of data. I solved all these problems step by step.
+
+What I Did (Step by Step):
+
+1. Data Loading
+   I loaded the CSV file using Pandas. Then I used head(), info(), and 
+   describe() to understand the data. I found that 5 columns had missing 
+   values: age, gender, employment_type, annual_income, loan_amount, 
+   credit_score, and spending_ratio.
+
+2. Missing Values
+   I filled the missing numbers (age, annual_income, loan_amount, 
+   credit_score, spending_ratio) with the mean (average). I filled the 
+   missing text values (gender, employment_type) with the most common 
+   value (mode). After this, there were 0 missing values left.
+
+3. Outliers
+   Some customers had very high income and loan amounts. I used the IQR 
+   (Interquartile Range) method to cap these values. I did not delete any 
+   rows, I only adjusted the values.
+
+4. Date Handling
+   The join_date column was in text format. I converted it to datetime and 
+   extracted Year, Month, and Day. Then I dropped the original date column.
+
+5. Encoding
+   Computers cannot understand text, so I converted text to numbers. 
+   I used LabelEncoder for gender and education_level. I used One-Hot 
+   Encoding for region, employment_type, and loan_purpose.
+
+6. Binning
+   I created a new column called income_group by dividing annual_income 
+   into 3 groups: Low, Medium, and High. I also created a column called 
+   credit_flag which is 1 if credit_score > 700, else 0.
+
+7. Feature Scaling
+   I used StandardScaler to bring all numeric columns to the same scale. 
+   This helps the model learn better.
+
+8. Feature Construction
+   I created 3 new features:
+   - debt_to_income = loan_amount / annual_income
+   - avg_monthly_trans = transaction_count / 6
+   - spending_to_income = spending_ratio / annual_income
+
+9. Transformations
+   I used PowerTransformer (Yeo-Johnson method) on loan_amount and 
+   annual_income to make them more normal and reduce skewness.
+
+Final Result:
+- Final file name: final_credit_risk_dataset.csv
+- Total rows: 1000
+- Total columns: 27
+- All missing values filled
+- All outliers handled
+- Text columns converted to numbers
+- New features created
+- Data is completely clean and ready for machine learning
